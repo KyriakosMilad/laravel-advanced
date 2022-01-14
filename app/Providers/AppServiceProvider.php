@@ -6,6 +6,7 @@ use App\Billing\BankPaymentGateway;
 use App\Billing\CreditCardPaymentGateway;
 use App\Billing\PaymentGatewayContract;
 use App\Mixins\StrMixin;
+use App\PostCardSendingService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 
@@ -18,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+			/**
+			 * service container
+			 */
 //        $this->app->bind(BankPaymentGateway::class, function ($app) {
 //					return new BankPaymentGateway('egp');
 //				});
@@ -30,6 +34,13 @@ class AppServiceProvider extends ServiceProvider
 				}
 				abort(422);
 			});
+
+			/**
+			 * facades
+			 */
+			$this->app->bind('PostCard', function () {
+				return new PostCardSendingService('eg', 4, 6);
+			});
     }
 
     /**
@@ -39,6 +50,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+			/**
+			 * macros
+			 */
         Str::macro('prefix', function($str) {
 					return 'a--' . $str;
 				});

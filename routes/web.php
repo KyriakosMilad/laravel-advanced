@@ -1,5 +1,7 @@
 <?php
 
+use App\PostCard;
+use App\PostCardSendingService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -18,6 +20,15 @@ use Illuminate\Support\Str;
 Route::get('/', function () {
 		dd(Str::prefix('a7a'));
     return view('welcome');
+});
+
+Route::get('/postcards', function () {
+	$postCardService = new PostCardSendingService('eg', 4, 6);
+	$postCardService->hello('hiiii people', 'eg@eg.eg');
+});
+
+Route::get('/facades', function () {
+	PostCard::hello('hi people', 'eg@eg.eg');
 });
 
 Route::get('/pay', 'PayOrderController@store');
