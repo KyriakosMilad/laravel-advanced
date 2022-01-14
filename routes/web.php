@@ -20,6 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/pay', 'PayOrderController@store');
+Route::get('/payBank', 'PayOrderController@store');
+Route::get('/payCreditCard', 'PayOrderController@store');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
